@@ -120,6 +120,7 @@ export default function HomePage() {
   const [canScroll, setCanScroll] = useState(false);
   const [showScrollNotification, setShowScrollNotification] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const secondSectionRef = useRef<HTMLDivElement>(null);
   const [scope, animate] = useAnimate();
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -312,6 +313,25 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  // Update body overflow when menu is open on mobile
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (isMenuOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else if (canScroll) {
+      document.body.style.overflow = "";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      if (canScroll) {
+        document.body.style.overflow = "";
+      }
+    };
+  }, [isMenuOpen, isMobile, canScroll]);
+
   const handleNavClick = (id: string) => {
     // Only allow navigation if scrolling is enabled
     if (canScroll) {
@@ -469,6 +489,8 @@ export default function HomePage() {
           items={navItems}
           activeSection={activeSection}
           className="shadow-lg shadow-black/20"
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
         />
       </div>
 
