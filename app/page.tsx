@@ -130,6 +130,8 @@ export default function HomePage() {
 
   // Check if user has previously unlocked scrolling
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const hasUnlockedScroll =
       localStorage.getItem("hasUnlockedScroll") === "true";
 
@@ -193,6 +195,8 @@ export default function HomePage() {
 
   // Check if device is mobile
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -203,7 +207,7 @@ export default function HomePage() {
 
   // Track scroll position
   useEffect(() => {
-    if (!canScroll) return;
+    if (!canScroll || typeof window === "undefined") return;
 
     let ticking = false;
     let lastScrollY = 0;
@@ -243,7 +247,7 @@ export default function HomePage() {
 
   // Add scrolling class
   useEffect(() => {
-    if (!canScroll) return;
+    if (!canScroll || typeof window === "undefined") return;
 
     let scrollTimer: NodeJS.Timeout;
 
@@ -264,6 +268,8 @@ export default function HomePage() {
 
   // Update body overflow
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     if (canScroll) {
       document.body.style.overflow = "";
       setShowScrollNotification(false);
