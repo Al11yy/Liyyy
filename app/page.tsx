@@ -5,6 +5,7 @@ import { motion, stagger, useAnimate, AnimatePresence } from "framer-motion";
 import { Home, User, FolderGit2, Code, BookOpen, Share2 } from "lucide-react";
 import { SiReact } from "react-icons/si";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { ModernNavbar } from "@/components/ui/modern-navbar";
 import { GlowButton } from "@/components/ui/glow-button";
@@ -13,7 +14,6 @@ import Floating, {
 } from "@/fancy/components/image/parallax-floating";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { exampleImages } from "@/utils/demo-images";
-import { Globe as GlobeComponent } from "@/components/ui/globe";
 import { LogoCarousel } from "@/components/ui/logo-carousel";
 import { techIcons } from "@/components/ui/tech-icons";
 import { LoadingScreen } from "@/components/ui/loading-screen";
@@ -21,8 +21,28 @@ import { SocialLinks } from "@/components/social-links";
 import { Globe } from "lucide-react";
 import { ProjectCard } from "@/components/ui/project-card";
 import Footer from "@/components/footer";
-import { ShootingStars } from "@/components/ui/shooting-stars";
 import { Squares } from "@/components/ui/squares-background";
+
+// Dynamically import components that use window
+const GlobeComponent = dynamic(
+  () => import("@/components/ui/globe").then((mod) => mod.Globe),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+      </div>
+    ),
+  }
+);
+
+const ShootingStarsComponent = dynamic(
+  () =>
+    import("@/components/ui/shooting-stars").then((mod) => mod.ShootingStars),
+  {
+    ssr: false,
+  }
+);
 
 // Updated quotes data with the new quotes
 const inspirationalQuotes = [
@@ -777,7 +797,7 @@ export default function HomePage() {
 
         {/* Shooting stars effect */}
         <div className="absolute inset-0 overflow-hidden">
-          <ShootingStars
+          <ShootingStarsComponent
             starColor="#9E00FF"
             trailColor="#2EB9DF"
             minSpeed={20}
@@ -823,7 +843,7 @@ export default function HomePage() {
           <div className="stars absolute inset-0" />
 
           {/* Multiple shooting star layers with different colors and speeds */}
-          <ShootingStars
+          <ShootingStarsComponent
             starColor="#9E00FF"
             trailColor="#2EB9DF"
             minSpeed={15}
@@ -831,7 +851,7 @@ export default function HomePage() {
             minDelay={1000}
             maxDelay={3000}
           />
-          <ShootingStars
+          <ShootingStarsComponent
             starColor="#FF0099"
             trailColor="#FFB800"
             minSpeed={10}
@@ -839,7 +859,7 @@ export default function HomePage() {
             minDelay={2000}
             maxDelay={4000}
           />
-          <ShootingStars
+          <ShootingStarsComponent
             starColor="#00FF9E"
             trailColor="#00B8FF"
             minSpeed={20}
