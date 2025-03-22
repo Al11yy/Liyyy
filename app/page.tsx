@@ -127,6 +127,7 @@ export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasTriedToScroll, setHasTriedToScroll] = useState(false);
   const aboutButtonRef = useRef<HTMLButtonElement>(null);
+  const [showNavbar, setShowNavbar] = useState(false);
 
   // Check if user has previously unlocked scrolling
   useEffect(() => {
@@ -373,8 +374,19 @@ export default function HomePage() {
     },
   ];
 
-  // Determine if we should show the navbar (only after hero section)
-  const showNavbar = scrollPosition > window.innerHeight * 0.5 || canScroll;
+  // Update navbar visibility based on scroll position
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updateNavbarVisibility = () => {
+      const shouldShow = scrollPosition > window.innerHeight * 0.5 || canScroll;
+      setShowNavbar(shouldShow);
+    };
+
+    updateNavbarVisibility();
+    window.addEventListener("resize", updateNavbarVisibility);
+    return () => window.removeEventListener("resize", updateNavbarVisibility);
+  }, [scrollPosition, canScroll]);
 
   // Define the bento features - restored "Currently Learning" section
   const bentoFeatures = [
