@@ -114,11 +114,9 @@ export default function HomePage() {
       localStorage.getItem("hasUnlockedScroll") === "true";
 
     if (hasUnlockedScroll) {
-      // If user has previously unlocked scrolling, enable it
       setCanScroll(true);
       document.body.style.overflow = "";
     } else {
-      // Otherwise, lock scrolling
       document.body.style.overflow = "hidden";
       setCanScroll(false);
     }
@@ -129,20 +127,17 @@ export default function HomePage() {
         setShowScrollNotification(true);
         setHasTriedToScroll(true);
 
-        // Hide notification after 6 seconds
         setTimeout(() => {
           setShowScrollNotification(false);
         }, 6000);
       }
     };
 
-    // Use multiple event listeners to ensure we catch all scroll attempts
     window.addEventListener("wheel", handleScrollAttempt, { passive: true });
     window.addEventListener("touchmove", handleScrollAttempt, {
       passive: true,
     });
     window.addEventListener("keydown", (e) => {
-      // Detect arrow keys, Page Up/Down, Space, etc.
       if (
         [
           "ArrowDown",
@@ -160,56 +155,21 @@ export default function HomePage() {
       }
     });
 
-    // Also show notification on initial load
     if (!canScroll && !hasTriedToScroll) {
-      // Show notification after a short delay on page load
       setTimeout(() => {
         setShowScrollNotification(true);
         setHasTriedToScroll(true);
-
-        // Hide after 6 seconds
         setTimeout(() => {
           setShowScrollNotification(false);
         }, 6000);
-      }, 2000); // Show 2 seconds after page load
+      }, 2000);
     }
 
     return () => {
       window.removeEventListener("wheel", handleScrollAttempt);
       window.removeEventListener("touchmove", handleScrollAttempt);
-      window.removeEventListener("keydown", handleScrollAttempt);
     };
   }, [canScroll, hasTriedToScroll]);
-
-  // Add click handler for hero section
-  useEffect(() => {
-    if (!canScroll) {
-      const handleHeroClick = (e: MouseEvent) => {
-        // Check if the click is within the hero section
-        const heroSection = document.getElementById("home");
-        if (heroSection && heroSection.contains(e.target as Node)) {
-          // Check if the click is NOT on the About Me button
-          if (
-            aboutButtonRef.current &&
-            !aboutButtonRef.current.contains(e.target as Node)
-          ) {
-            setShowScrollNotification(true);
-
-            // Hide notification after 5 seconds
-            setTimeout(() => {
-              setShowScrollNotification(false);
-            }, 5000);
-          }
-        }
-      };
-
-      window.addEventListener("click", handleHeroClick);
-
-      return () => {
-        window.removeEventListener("click", handleHeroClick);
-      };
-    }
-  }, [canScroll]);
 
   // Check if device is mobile
   useEffect(() => {
@@ -217,34 +177,21 @@ export default function HomePage() {
       setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
-
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Add this effect to rotate quotes with reduced frequency
+  // Track scroll position
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentQuoteIndex(
-        (prevIndex) => (prevIndex + 1) % inspirationalQuotes.length
-      );
-    }, 8000); // Increased interval time
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Track scroll position with throttling for better performance
-  useEffect(() => {
-    if (!canScroll) return; // Don't track scroll if scrolling is disabled
+    if (!canScroll) return;
 
     let ticking = false;
     let lastScrollY = 0;
-    const scrollThreshold = 50; // Only update if scrolled more than this amount
+    const scrollThreshold = 50;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Only process if we've scrolled significantly
       if (
         !ticking &&
         Math.abs(currentScrollY - lastScrollY) > scrollThreshold
@@ -253,7 +200,6 @@ export default function HomePage() {
           setScrollPosition(currentScrollY);
           lastScrollY = currentScrollY;
 
-          // Update active section based on scroll position
           const sections = ["home", "about", "projects", "social"];
           for (const section of sections) {
             const element = document.getElementById(section);
@@ -275,39 +221,32 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [canScroll]);
 
-  // Add this code to detect scrolling and add the 'scrolling' class
+  // Add scrolling class
   useEffect(() => {
-    if (!canScroll) return; // Don't add scrolling class if scrolling is disabled
+    if (!canScroll) return;
 
     let scrollTimer: NodeJS.Timeout;
 
     const handleScroll = () => {
-      // Add scrolling class to body
       document.body.classList.add("scrolling");
-
-      // Clear previous timeout
       clearTimeout(scrollTimer);
-
-      // Set a timeout to remove the class after scrolling stops
       scrollTimer = setTimeout(() => {
         document.body.classList.remove("scrolling");
-      }, 1000); // Remove class after 1 second of no scrolling
+      }, 1000);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimer);
     };
   }, [canScroll]);
 
-  // Update body overflow and save scroll state when canScroll changes
+  // Update body overflow
   useEffect(() => {
     if (canScroll) {
       document.body.style.overflow = "";
       setShowScrollNotification(false);
-      // Save scroll state to localStorage when About Me is clicked
       localStorage.setItem("hasUnlockedScroll", "true");
     } else {
       document.body.style.overflow = "hidden";
@@ -318,7 +257,7 @@ export default function HomePage() {
     };
   }, [canScroll]);
 
-  // Simplified animation with fewer items
+  // Simplified animation
   useEffect(() => {
     if (isLoaded) {
       animate(
@@ -329,9 +268,20 @@ export default function HomePage() {
     }
   }, [animate, isLoaded]);
 
-  // Mark as loaded after initial render
+  // Mark as loaded
   useEffect(() => {
     setIsLoaded(true);
+  }, []);
+
+  // Add this effect to rotate quotes with reduced frequency
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentQuoteIndex(
+        (prevIndex) => (prevIndex + 1) % inspirationalQuotes.length
+      );
+    }, 8000); // Increased interval time
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleNavClick = (id: string) => {
