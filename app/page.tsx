@@ -6,6 +6,7 @@ import { Home, User, FolderGit2, Code, BookOpen, Share2 } from "lucide-react";
 import { SiReact } from "react-icons/si";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 import { ModernNavbar } from "@/components/ui/modern-navbar";
 import { GlowButton } from "@/components/ui/glow-button";
@@ -778,18 +779,8 @@ export default function HomePage() {
               className="top-[25%] left-[95%] hidden md:block">
               <motion.img
                 initial={{ opacity: 0 }}
-                src="/images/raviel.jpg"
-                className="w-32 h-32 md:w-44 md:h-44 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform rounded-xl shadow-lg"
-                alt="Raviel"
-              />
-            </FloatingElement>
-            <FloatingElement
-              depth={2}
-              className="top-[65%] left-[35%] hidden md:block">
-              <motion.img
-                initial={{ opacity: 0 }}
                 src="/images/uhhhh.jpg"
-                className="w-36 h-36 md:w-48 md:h-48 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform rounded-xl shadow-lg"
+                className="w-32 h-32 md:w-44 md:h-44 object-cover hover:scale-105 duration-200 cursor-pointer transition-transform rounded-xl shadow-lg"
                 alt="Uhhhh"
               />
             </FloatingElement>
