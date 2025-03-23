@@ -16,47 +16,56 @@ import { GlowButton } from "@/components/ui/glow-button"
 const allProjects = [
   {
     title: "Personal Portfolio",
-    description: "My personal portfolio website built with Next.js and Tailwind CSS.",
+    description:
+      "My personal portfolio website built with Next.js and Tailwind CSS.",
     imageUrl: exampleImages[2].url,
     tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
     liveUrl: "#",
   },
   {
     title: "ExproTravel",
-    description: "Travel website showcasing destinations and travel packages with booking functionality.",
-    imageUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ExproTravel-8fBbxe7IznIDzr1gRwx7LzQLagcoFB.png",
+    description:
+      "Travel website showcasing destinations and travel packages with booking functionality.",
+    imageUrl:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ExproTravel-8fBbxe7IznIDzr1gRwx7LzQLagcoFB.png",
     tags: ["HTML", "CSS", "JavaScript"],
-    liveUrl: "https://al11yy.github.io/Modul-3-Sertikom-Pertama-web-traveling-/#home",
+    liveUrl:
+      "https://al11yy.github.io/Modul-3-Sertikom-Pertama-web-traveling-/#home",
   },
   {
     title: "Wedding Invitation",
-    description: "Digital wedding invitation with countdown timer and event details.",
-    imageUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Wedding-zCdGiQAdb93eUJ7oI6Gh1kRw3OBUl4.png",
+    description:
+      "Digital wedding invitation with countdown timer and event details.",
+    imageUrl:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Wedding-zCdGiQAdb93eUJ7oI6Gh1kRw3OBUl4.png",
     tags: ["Bootstrap", "JavaScript", "Responsive Design"],
-    liveUrl: "https://al11yy.github.io/Modulo-5-Bootstrap-2-Wedding-invitation-page/",
+    liveUrl:
+      "https://al11yy.github.io/Modulo-5-Bootstrap-2-Wedding-invitation-page/",
   },
   {
     title: "TechEduca",
-    description: "Educational platform website for technology courses and learning resources.",
-    imageUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/techeduca-UB4to89uR6FLCBtp4x2FHoW7gekdRZ.png",
+    description:
+      "Educational platform website for technology courses and learning resources.",
+    imageUrl:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/techeduca-UB4to89uR6FLCBtp4x2FHoW7gekdRZ.png",
     tags: ["HTML", "CSS", "JavaScript"],
     liveUrl: "https://al11yy.github.io/Modul-2-Web-1-tech-educa/",
   },
   {
     title: "Friend's Portfolio",
-    description: "Portfolio website designed for my friend Kyoz.",
+    description: "Portfolio website designed for my friend Kyoz",
     imageUrl:
       "https://sjc.microlink.io/o8n6Lusd2IWCWmnQbeXPRutCLhJBgEyZqlUWwL8t3ixB-SMlcQ7rUAUF9KPNuAyjpyvnMnpV4zHL2pnwGN9ifg.jpeg",
     tags: ["HTML", "CSS", "JavaScript"],
     liveUrl: "https://hadifawwaz.github.io/Personal_Website/",
   },
   {
-    title: "Coming Soon",
-    description: "",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    tags: ["Coming Soon"],
+    title: "Friend's Portfolio",
+    description: "Portfolio website designed for my friend...",
+    imageUrl:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portoXEON-HbyiJkUe5SAw34cxyUi1KilNPY9dmP.png",
+    tags: ["Next.js", "React", "Tailwind CSS"],
     liveUrl: "#",
-    comingSoon: true,
   },
   {
     title: "Coming Soon",
@@ -82,7 +91,15 @@ const allProjects = [
     liveUrl: "#",
     comingSoon: true,
   },
-]
+  {
+    title: "Coming Soon",
+    description: "",
+    imageUrl: "/placeholder.svg?height=400&width=600",
+    tags: ["Coming Soon"],
+    liveUrl: "#",
+    comingSoon: true,
+  },
+];
 
 export default function ProjectsPage() {
   const [isLoading, setIsLoading] = useState(true)
