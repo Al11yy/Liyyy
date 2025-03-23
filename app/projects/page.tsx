@@ -64,7 +64,7 @@ const allProjects = [
     description: "Portfolio website designed for my friend...",
     imageUrl:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portoXEON-HbyiJkUe5SAw34cxyUi1KilNPY9dmP.png",
-    tags: ["Next.js", "React", "Tailwind CSS"],
+    tags: ["HTML", "CSS", "JavaScript"],
     liveUrl: "#",
   },
   {
